@@ -1,0 +1,123 @@
+//register.html code
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register</title>
+<style>
+body{
+font-family:Arial;
+background:linear-gradient(45deg,#667eea,#764ba2);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0
+}
+form{
+background:#fff;
+padding:20px;
+border-radius:8px;
+width:250px;
+text-align:center
+}
+input,button{
+width:100%;
+margin:6px 0;
+padding:6px
+}
+button{
+background:#667eea;
+color:#fff;
+border:none
+}
+</style>
+</head>
+<body>
+
+<form id="f">
+<h3>User Registration</h3>
+<input type="text" id="name" placeholder="Name" required>
+<input type="email" id="email" placeholder="Email" required>
+<input type="text" id="mobile" placeholder="Mobile" required>
+<input type="text" id="college_Name" placeholder="College Name" required>
+<button type="submit">Register</button>
+</form>
+
+<script>
+document.getElementById("f").onsubmit = function(e){
+e.preventDefault();
+
+let u = {
+name: document.getElementById("name").value,
+email: document.getElementById("email").value,
+mobile: document.getElementById("mobile").value,
+college_Name: document.getElementById("college_Name").value
+};
+
+let users = JSON.parse(localStorage.getItem("users")) || [];
+users.push(u);
+localStorage.setItem("users", JSON.stringify(users));
+
+alert("Registration Successful!");
+window.location.href = "list.html";
+}
+</script>
+
+</body>
+</html>
+
+//list.html code
+<!DOCTYPE html>
+<html>
+<head>
+<title>User List</title>
+<style>
+table{
+border-collapse:collapse;
+width:80%;
+margin:40px auto
+}
+th,td{
+border:1px solid black;
+padding:8px;
+text-align:center
+}
+th{
+background:#667eea;
+color:white
+}
+</style>
+</head>
+<body>
+
+<h2 align="center">Registered Users</h2>
+
+<table>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Mobile</th>
+<th>College</th>
+</tr>
+<tbody id="data"></tbody>
+</table>
+
+<script>
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+let output = "";
+
+for(let i=0; i<users.length; i++){
+output += "<tr>";
+output += "<td>" + users[i].name + "</td>";
+output += "<td>" + users[i].email + "</td>";
+output += "<td>" + users[i].mobile + "</td>";
+output += "<td>" + users[i].college_Name + "</td>";
+output += "</tr>";
+}
+
+document.getElementById("data").innerHTML = output;
+</script>
+
+</body>
+</html>
